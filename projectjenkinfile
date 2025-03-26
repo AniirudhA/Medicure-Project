@@ -38,5 +38,16 @@ pipeline
           sh 'docker build -t aniirudh/medicure-project .'
         }
       }
+    stage('Logging to DOCKER HUB') 
+    {
+      steps 
+        {
+          echo 'This is to push Docker Image'
+          withCredentials([usernamePassword(credentialsId: 'dockerhub-cre', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+          sh "echo $PASS | docker login -u $USER --password-stdin"
+          sh 'docker push aniirudh/medicure-project'  
+          }
+        }
+    }
 }
 }
