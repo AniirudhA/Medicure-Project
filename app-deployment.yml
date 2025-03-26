@@ -1,0 +1,40 @@
+# Deployment Configuration for Healthcare App
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: medicure-deployment  # Name of the Deployment
+  labels:
+    app: medicure-k8s
+spec:
+  replicas: 2  
+  selector:
+    matchLabels:
+      app: medicure-k8s
+  template:
+    metadata:
+      labels:
+        app: medicure-k8s  
+    spec:
+      containers:
+        - name: medicure-app  # Name of the container
+          image: aniirudh/medicure-project:latest  # Docker image for the container
+          imagePullPolicy: IfNotPresent  # Pull policy to avoid unnecessary downloads
+          ports:
+            - containerPort: 9094  # Exposed port inside the container
+
+---
+# Service Configuration for Exposing Healthcare App
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: medicure-service  # Name of the Service
+spec:
+  selector:
+    app: medicure-k8s  # Matches the label in Deployment to connect
+  ports:
+    - protocol: TCP
+      port: 9094  # Service port to be accessed within the cluster
+      targetPort: 9094  # Maps to the container's port
+  type: NodePort  # Service type to expose the application externally
