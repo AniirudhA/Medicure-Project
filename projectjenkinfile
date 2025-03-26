@@ -1,1 +1,24 @@
-
+pipeline 
+{
+  agent any
+    tools{
+      maven 'M2_HOME'
+          }
+   stages 
+  {
+    stage('Git checkout') 
+    {
+      steps  
+        {
+          echo 'This for only clonning the git repository'
+          git 'https://github.com/AniirudhA/Medicure-Project.git'
+        }
+    }
+    stage('Maven Package') 
+    {
+      steps 
+        {
+          echo 'This for Packaging the application'
+          sh 'mvn package'
+        }
+    }
