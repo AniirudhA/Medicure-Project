@@ -22,5 +22,13 @@ pipeline
           sh 'mvn package'
         }
     }
+    stage('Test Results') 
+    {
+      steps 
+        {
+          echo 'This for Testing the results of application'
+          publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, icon: '', keepAll: false, reportDir: '/var/lib/jenkins/workspace/Medicure/target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+        }
+      }
 }
 }
