@@ -49,10 +49,14 @@ pipeline
           }
         }
     }
-     stage('Ansible Playbook') {
-      steps {
-        ansiblePlaybook credentialsId: 'sshkey', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible-playbook.yml', vaultTmpPath: ''
-                                }
-            } 
+     stage('Deploy Infrastructure with Terraform') {
+            steps {
+                sh '''
+                    cd terraform
+                    terraform init
+                    terraform apply -auto-approve
+                '''
+            }
+        }
 }
 }
