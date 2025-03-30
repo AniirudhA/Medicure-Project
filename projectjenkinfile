@@ -49,14 +49,6 @@ pipeline
           }
         }
     }
-     stage('Deploy Infrastructure with Terraform') {
-            steps {
-                sh '''
-                    cd terraform
-                    terraform init
-                    terraform apply -auto-approve
-                '''
-            }
-        }
+     
 }
 }
