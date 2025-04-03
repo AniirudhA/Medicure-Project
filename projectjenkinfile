@@ -35,6 +35,7 @@ pipeline
       steps 
         {
           echo 'This is to build Docker Image'
+          sudo chmod 666 /var/run/docker.sock
           sh 'docker build -t aniirudh/medicure-project .'
         }
       }
