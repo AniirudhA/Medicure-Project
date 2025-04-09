@@ -49,6 +49,13 @@ pipeline
           }
         }
     }
+    stage('Debug Path') {
+    steps {
+        sh 'pwd'
+        sh 'ls -al'
+    }
+}
+
     stage('Deploy to Kubernetes') {
             steps {
                     sh 'kubectl apply -f /k8s/deployment.yml'
